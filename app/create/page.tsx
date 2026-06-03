@@ -39,7 +39,8 @@ export default function CreateCapsule() {
     
     setIsLocking(true);
     try {
-      const unlockTimestamp = BigInt(Math.floor(new Date(unlockDate).getTime() / 1000));
+      // Ritual Testnet quirk: block.timestamp is in milliseconds, NOT seconds!
+      const unlockTimestamp = BigInt(new Date(unlockDate).getTime());
       
       const hash = await writeContractAsync({
         address: VEIN_VAULT_ADDRESS,

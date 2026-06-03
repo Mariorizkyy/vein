@@ -25,7 +25,8 @@ function CapsuleItem({ id }: { id: bigint }) {
 
   // Wagmi returns tuple data as an array for structs
   const [, , category, , unlockTimestamp, snippet, isRevealed, evaluation] = capsuleData as any;
-  const isLocked = Number(unlockTimestamp) > Math.floor(Date.now() / 1000);
+  // Ritual Testnet quirk: unlockTimestamp is already in milliseconds
+  const isLocked = Number(unlockTimestamp) > Date.now();
   
   const handleEvaluate = async () => {
     if (!address) return;
@@ -63,7 +64,7 @@ function CapsuleItem({ id }: { id: bigint }) {
             isRevealed ? 'border-green-500/50 text-green-400 bg-green-500/10' :
             'border-yellow-500/50 text-yellow-400 bg-yellow-500/10'
           }`}>
-            {isLocked ? `Unlocks ${new Date(Number(unlockTimestamp) * 1000).toLocaleDateString()}` : 
+            {isLocked ? `Unlocks ${new Date(Number(unlockTimestamp)).toLocaleDateString()}` : 
              isRevealed ? 'EVALUATED' : 'UNLOCKED - READY'}
           </span>
         </div>
