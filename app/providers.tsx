@@ -14,7 +14,7 @@ const ritualTestnet = {
     default: { http: ["https://rpc.ritualfoundation.org"] },
   },
   blockExplorers: {
-    default: { name: "Ritual Explorer", url: "https://explorer.ritual.net" },
+    default: { name: "Ritual Explorer", url: "https://explorer.ritualfoundation.org" },
   },
 } as const;
 

@@ -156,7 +156,7 @@ export default function CreateVein() {
               
               <div className="flex gap-4">
                 <a 
-                  href={`https://explorer.ritual.net/tx/${txHash}`}
+                  href={`https://explorer.ritualfoundation.org/tx/${txHash}`}
                   target="_blank"
                   rel="noreferrer"
                   className="px-6 py-3 bg-white/10 hover:bg-white/20 rounded-full text-sm font-medium transition-colors"
