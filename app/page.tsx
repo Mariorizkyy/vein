@@ -1,67 +1,70 @@
-import Link from "next/link";
-import { ArrowRight, Lock, Brain, Clock } from "lucide-react";
 import ConnectButton from "../components/ConnectButton";
+import { Lock, BrainCircuit, Shield } from "lucide-react";
+import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-[#0A0A0A] text-[#FAFAF9] flex flex-col selection:bg-white/20 selection:text-white font-sans">
-      <header className="flex items-center justify-between px-8 py-6 max-w-7xl w-full mx-auto">
-        <div className="text-xl font-medium tracking-tight">VEIN</div>
-        <nav className="flex items-center gap-6 text-sm text-[#A1A1AA]">
-          <Link href="/" className="hover:text-white transition-colors">Home</Link>
-          <div className="h-4 w-[1px] bg-white/10"></div>
-          <ConnectButton />
-        </nav>
+    <div className="min-h-screen bg-[#0A0A0A] text-[#FAFAF9] flex flex-col font-sans relative overflow-hidden">
+      {/* Dynamic Background Effects */}
+      <div className="absolute top-0 left-1/4 w-96 h-96 bg-purple-600/20 rounded-full mix-blend-screen filter blur-[100px] animate-blob z-0" />
+      <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-blue-600/20 rounded-full mix-blend-screen filter blur-[100px] animate-blob animation-delay-2000 z-0" />
+      <div className="absolute -bottom-32 left-1/2 w-96 h-96 bg-emerald-600/10 rounded-full mix-blend-screen filter blur-[100px] animate-blob animation-delay-4000 z-0" />
+
+      {/* Header */}
+      <header className="flex justify-between items-center px-8 py-6 w-full mx-auto relative z-10 border-b border-white/5 bg-black/20 backdrop-blur-md">
+        <div className="flex items-center gap-3">
+          <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center">
+            <Lock className="w-5 h-5 text-black" />
+          </div>
+          <span className="font-semibold text-lg tracking-tight">Vein</span>
+        </div>
+        <ConnectButton />
       </header>
 
-      <main className="flex-1 flex flex-col items-center justify-center px-4 pt-20 pb-32 max-w-4xl mx-auto text-center">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/10 bg-white/5 text-xs font-medium text-[#A1A1AA] mb-8">
-          <span className="flex h-2 w-2 rounded-full bg-green-500 animate-pulse"></span>
-          Live on Ritual Chain
+      {/* Main Hero */}
+      <main className="flex-1 flex flex-col items-center justify-center px-4 text-center relative z-10 mt-16">
+        <div className="max-w-4xl mx-auto flex flex-col items-center animate-fade-in-up">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-sm text-[#A1A1AA] mb-8 shadow-lg">
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.8)]"></span>
+            Powered by Ritual Testnet
+          </div>
+          
+          <h1 className="text-6xl md:text-8xl font-bold tracking-tighter mb-6 text-transparent bg-clip-text bg-gradient-to-b from-white to-white/60 drop-shadow-xl">
+            Time-Locked<br/>AI Capsules
+          </h1>
+          
+          <p className="text-lg md:text-xl text-[#A1A1AA] mb-10 max-w-2xl font-light leading-relaxed">
+            Seal your predictions, beliefs, or secrets on the blockchain. When the time comes, 
+            Ritual's decentralized AI breaks the seal, evaluates the truth, and issues an immutable verdict.
+          </p>
+
+          <Link href="/dashboard" className="group relative inline-flex items-center gap-2 px-8 py-4 bg-white text-black rounded-full font-medium text-lg overflow-hidden transition-transform hover:scale-105 active:scale-95 shadow-[0_0_30px_rgba(255,255,255,0.15)] hover:shadow-[0_0_50px_rgba(255,255,255,0.3)]">
+            <span className="relative z-10">Enter the Vault</span>
+            <div className="absolute inset-0 h-full w-full bg-gradient-to-r from-transparent via-black/10 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]"></div>
+          </Link>
         </div>
-        
-        <h1 className="text-6xl md:text-8xl font-semibold tracking-tighter leading-tight mb-6">
-          The future audits <br />
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-neutral-400 to-neutral-700">your past.</span>
-        </h1>
-        
-        <p className="text-lg md:text-xl text-[#A1A1AA] max-w-2xl mb-12 font-light leading-relaxed">
-          Record a belief. Lock it in time. <br />
-          Let AI decide what reality says later.
-        </p>
 
-        <Link href="/create" className="group inline-flex items-center gap-2 bg-white text-black px-8 py-4 rounded-full text-lg font-medium hover:scale-105 transition-all duration-300">
-          Create a Vein
-          <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-        </Link>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mt-32 text-left">
-          <div className="flex flex-col gap-3">
-            <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center mb-2 border border-white/10">
-              <Lock className="w-5 h-5 text-neutral-300" />
+        {/* Features */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-32 max-w-5xl mx-auto w-full animate-fade-in pb-20" style={{animationDelay: '0.2s'}}>
+          {[
+            { icon: Lock, title: "Cryptographic Seals", desc: "Your data is mathematically locked until the precise timestamp." },
+            { icon: BrainCircuit, title: "AI Verdicts", desc: "Decentralized models evaluate the truth without human bias." },
+            { icon: Shield, title: "Proof of Conviction", desc: "Build on-chain reputation by staking your foresight." }
+          ].map((feature, i) => (
+            <div key={i} className="glass-card p-8 rounded-3xl flex flex-col items-center text-center group hover:-translate-y-2 transition-all duration-300">
+              <div className="w-14 h-14 bg-white/5 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-white/10 transition-colors shadow-inner">
+                <feature.icon className="w-6 h-6 text-[#FAFAF9]" />
+              </div>
+              <h3 className="font-semibold text-lg mb-2">{feature.title}</h3>
+              <p className="text-[#A1A1AA] text-sm leading-relaxed">{feature.desc}</p>
             </div>
-            <h3 className="font-medium text-lg">Time-Locked</h3>
-            <p className="text-[#A1A1AA] text-sm leading-relaxed">Cryptographically sealed capsules using Ritual Secrets. Cannot be revealed until the unlock timestamp.</p>
-          </div>
-          <div className="flex flex-col gap-3">
-            <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center mb-2 border border-white/10">
-              <Brain className="w-5 h-5 text-neutral-300" />
-            </div>
-            <h3 className="font-medium text-lg">AI Verdict</h3>
-            <p className="text-[#A1A1AA] text-sm leading-relaxed">Ritual-native AI evaluates your thesis against external data and reality, acting as an impartial judge.</p>
-          </div>
-          <div className="flex flex-col gap-3">
-            <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center mb-2 border border-white/10">
-              <Clock className="w-5 h-5 text-neutral-300" />
-            </div>
-            <h3 className="font-medium text-lg">Proof of Conviction</h3>
-            <p className="text-[#A1A1AA] text-sm leading-relaxed">Build a permanent, on-chain reputation based on your long-term accuracy and foresight.</p>
-          </div>
+          ))}
         </div>
       </main>
 
-      <footer className="py-8 text-center text-[#A1A1AA] text-sm border-t border-white/5">
-        <p>Built for the Ritual Ecosystem.</p>
+      {/* Footer */}
+      <footer className="py-8 text-center text-[#A1A1AA] text-sm relative z-10 border-t border-white/5 bg-black/20 backdrop-blur-md">
+        © 2026 Vein Protocol. Hackathon MVP.
       </footer>
     </div>
   );
