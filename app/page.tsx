@@ -8,8 +8,7 @@ export default function Home() {
       <header className="flex items-center justify-between px-8 py-6 max-w-7xl w-full mx-auto">
         <div className="text-xl font-medium tracking-tight">VEIN</div>
         <nav className="flex items-center gap-6 text-sm text-[#A1A1AA]">
-          <Link href="/about" className="hover:text-white transition-colors">Vision</Link>
-          <Link href="/explore" className="hover:text-white transition-colors">Explore</Link>
+          <Link href="/" className="hover:text-white transition-colors">Home</Link>
           <div className="h-4 w-[1px] bg-white/10"></div>
           <ConnectButton />
         </nav>
