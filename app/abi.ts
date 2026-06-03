@@ -246,11 +246,6 @@ export const VEIN_VAULT_ABI = [
         "type": "uint256"
       },
       {
-        "internalType": "address",
-        "name": "executor",
-        "type": "address"
-      },
-      {
         "internalType": "string",
         "name": "messagesJson",
         "type": "string"
