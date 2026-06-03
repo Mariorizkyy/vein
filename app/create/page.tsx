@@ -35,7 +35,7 @@ export default function CreateCapsule() {
     
     setIsLocking(true);
     try {
-      const unlockTimestamp = Math.floor(new Date(unlockDate).getTime() / 1000);
+      const unlockTimestamp = BigInt(Math.floor(new Date(unlockDate).getTime() / 1000));
       
       const txHash = await writeContractAsync({
         address: VEIN_VAULT_ADDRESS,
