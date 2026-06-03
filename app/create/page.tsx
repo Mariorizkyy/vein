@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { ArrowLeft, Lock, Calendar, PenTool } from "lucide-react";
-import { useAccount, useWriteContract } from "wagmi";
+import { useAccount, useWriteContract, useWaitForTransactionReceipt } from "wagmi";
 
 const CATEGORIES = [
   "Market Thesis",
@@ -24,7 +24,11 @@ export default function CreateCapsule() {
   const [content, setContent] = useState("");
   const [unlockDate, setUnlockDate] = useState("");
   const [isLocking, setIsLocking] = useState(false);
-  const [txHash, setTxHash] = useState("");
+  const [txHash, setTxHash] = useState<`0x${string}` | undefined>(undefined);
+
+  const { isLoading: isConfirming, isSuccess: isConfirmed } = useWaitForTransactionReceipt({
+    hash: txHash,
+  });
 
   const handleLock = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -37,14 +41,14 @@ export default function CreateCapsule() {
     try {
       const unlockTimestamp = BigInt(Math.floor(new Date(unlockDate).getTime() / 1000));
       
-      const txHash = await writeContractAsync({
+      const hash = await writeContractAsync({
         address: VEIN_VAULT_ADDRESS,
         abi: VEIN_VAULT_ABI,
         functionName: "createCapsule",
         args: [category, unlockTimestamp, content], // Using raw content for MVP
       });
       
-      setTxHash(txHash);
+      setTxHash(hash);
     } catch (err: any) {
       console.error(err);
       alert(`Error locking capsule: ${err.message}`);
@@ -69,7 +73,7 @@ export default function CreateCapsule() {
           <p className="text-[#A1A1AA]">Draft a thesis or belief. It will be encrypted and time-locked until your chosen date.</p>
         </div>
 
-        {!txHash ? (
+        {!isConfirmed ? (
           <form onSubmit={handleLock} className="flex flex-col gap-8">
             {/* Category Selection */}
             <div className="flex flex-col gap-3">
@@ -126,13 +130,13 @@ export default function CreateCapsule() {
             {/* Submit */}
             <button 
               type="submit" 
-              disabled={isLocking || !content || !unlockDate}
+              disabled={isLocking || isConfirming || !content || !unlockDate}
               className="mt-4 flex items-center justify-center gap-2 bg-white text-black px-8 py-4 rounded-xl text-base font-medium hover:bg-neutral-200 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {isLocking ? (
+              {(isLocking || isConfirming) ? (
                 <span className="flex items-center gap-2">
                   <div className="w-4 h-4 border-2 border-black/20 border-t-black rounded-full animate-spin" />
-                  Encrypting & Locking...
+                  {isConfirming ? "Confirming on-chain..." : "Encrypting & Locking..."}
                 </span>
               ) : (
                 <>
