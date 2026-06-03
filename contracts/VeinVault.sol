@@ -82,7 +82,6 @@ contract VeinVault {
     // Ritual Native AI Execution
     function triggerUnlockAndEvaluate(
         uint256 capsuleId,
-        address executor,
         string calldata messagesJson,
         bytes[] calldata encryptedSecrets,
         bytes[] calldata secretSignatures,
@@ -93,11 +92,64 @@ contract VeinVault {
         require(block.timestamp >= cap.unlockTimestamp, "Capsule is time-locked");
         require(!cap.isRevealed, "Capsule already revealed");
 
+        // Execute Native AI using address(0) for automatic executor assignment
+        bytes memory input = abi.encode(
+            address(0),       // executor
+            encryptedSecrets, // Ritual Secrets
+            uint256(300),     // ttl
+            secretSignatures, // Secret Signatures
+            bytes(""),        // userPublicKey
+            messagesJson,     // JSON messages
+            "zai-org/GLM-4.7-FP8",
+            int256(0),        // frequencyPenalty
+            "",               // logitBiasJson
+            false,            // logprobs
+            int256(4096),     // maxCompletionTokens
+            "",               // metadataJson
+            "",               // modalitiesJson
+            uint256(1),       // n
+            true,             // parallelToolCalls
+            int256(0),        // presencePenalty
+            "medium",         // reasoningEffort
+            responseFormatData, // responseFormatData
+            int256(-1),       // seed (null)
+            "auto",           // serviceTier
+            "",               // stopJson
+            bool(false),      // stream
+            int256(700),      // temperature (scaled ×1000)
+            bytes(""),        // toolChoiceData
+            bytes(""),        // toolsData
+            int256(-1),       // topLogprobs (null)
+            int256(1000),     // topP (1.0 × 1000)
+            "",               // user
+            bool(false),      // piiEnabled
+            abi.encode("gcs", "vein/sessions.jsonl", "VEIN_CREDS") // convo history
+        );
+
+        (bool success, bytes memory result) = LLM_PRECOMPILE.call(input);
+        require(success, "Precompile call failed");
+        
+        // Unwrap Async Envelope
+        (, bytes memory actualOutput) = abi.decode(result, (bytes, bytes));
+
+        bool hasError;
+        bytes memory completionData;
+        string memory errorMsg;
+        
+        StorageRef memory history;
+        (hasError, completionData, , errorMsg, history) = abi.decode(actualOutput, (bool, bytes, bytes, string, StorageRef));
+
+        if (hasError) {
+            emit InferenceError(capsuleId, errorMsg);
+            cap.evaluation.hasError = true;
+            return;
+        }
+
         cap.isRevealed = true;
         
-        // HACKATHON MVP: Bypass actual LLM precompile call to avoid testnet reverts due to missing GCS/Secrets.
-        // We simulate a successful extraction of a Correct verdict with a high score.
-        uint8 simulatedScore = 95;
+        // In a production environment, completionData would be parsed to extract the JSON output.
+        // For now, we simulate extracting a Correct verdict with 100 score if the precompile succeeds.
+        uint8 simulatedScore = 100;
         Verdict simulatedVerdict = Verdict.CORRECT;
 
         cap.evaluation = Evaluation({

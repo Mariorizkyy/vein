@@ -38,7 +38,6 @@ function CapsuleItem({ id }: { id: bigint }) {
         functionName: "triggerUnlockAndEvaluate",
         args: [
           id,
-          address,
           '[{"role":"user","content":"Evaluate this thesis based on reality."}]',
           [], // empty encryptedSecrets for MVP
           [], // empty secretSignatures for MVP

@@ -81,14 +81,7 @@ export interface VeinVaultInterface extends Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "triggerUnlockAndEvaluate",
-    values: [
-      BigNumberish,
-      AddressLike,
-      string,
-      BytesLike[],
-      BytesLike[],
-      BytesLike
-    ]
+    values: [BigNumberish, string, BytesLike[], BytesLike[], BytesLike]
   ): string;
   encodeFunctionData(
     functionFragment: "userCapsules",
@@ -300,7 +293,6 @@ export interface VeinVault extends BaseContract {
   triggerUnlockAndEvaluate: TypedContractMethod<
     [
       capsuleId: BigNumberish,
-      executor: AddressLike,
       messagesJson: string,
       encryptedSecrets: BytesLike[],
       secretSignatures: BytesLike[],
@@ -380,7 +372,6 @@ export interface VeinVault extends BaseContract {
   ): TypedContractMethod<
     [
       capsuleId: BigNumberish,
-      executor: AddressLike,
       messagesJson: string,
       encryptedSecrets: BytesLike[],
       secretSignatures: BytesLike[],
