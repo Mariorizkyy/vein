@@ -119,7 +119,7 @@ export default function CreateCapsule() {
                 Unlock Date
               </label>
               <input 
-                type="date" 
+                type="datetime-local" 
                 value={unlockDate}
                 onChange={(e) => setUnlockDate(e.target.value)}
                 className="w-full md:w-1/2 bg-white/5 border border-white/10 rounded-xl p-4 text-sm focus:outline-none focus:border-white/30 transition-all [&::-webkit-calendar-picker-indicator]:invert"
