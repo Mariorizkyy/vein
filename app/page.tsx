@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ArrowRight, Lock, Brain, Clock } from "lucide-react";
+import ConnectButton from "../components/ConnectButton";
 
 export default function Home() {
   return (
@@ -10,9 +11,7 @@ export default function Home() {
           <Link href="/about" className="hover:text-white transition-colors">Vision</Link>
           <Link href="/explore" className="hover:text-white transition-colors">Explore</Link>
           <div className="h-4 w-[1px] bg-white/10"></div>
-          <button className="text-white bg-white/10 hover:bg-white/15 px-4 py-2 rounded-full transition-colors text-sm font-medium">
-            Connect Wallet
-          </button>
+          <ConnectButton />
         </nav>
       </header>
 
