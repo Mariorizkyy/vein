@@ -37,14 +37,13 @@ function CapsuleItem({ id }: { id: bigint }) {
         address: VEIN_VAULT_ADDRESS,
         abi: VEIN_VAULT_ABI,
         functionName: "triggerUnlockAndEvaluate",
-        // @ts-ignore
         args: [
           id,
           '[{"role":"user","content":"Evaluate this thesis based on reality."}]',
           [], // empty encryptedSecrets for MVP
           [], // empty secretSignatures for MVP
           "0x"
-        ],
+        ] as any,
       });
       alert(`Evaluation Triggered! TX: ${txHash}`);
     } catch (err: any) {
