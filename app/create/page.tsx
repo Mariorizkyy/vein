@@ -14,8 +14,12 @@ const CATEGORIES = [
   "Custom",
 ];
 
+import { VEIN_VAULT_ADDRESS } from "../config";
+import { VEIN_VAULT_ABI } from "../abi";
+
 export default function CreateCapsule() {
   const { isConnected } = useAccount();
+  const { writeContractAsync } = useWriteContract();
   const [category, setCategory] = useState(CATEGORIES[0]);
   const [content, setContent] = useState("");
   const [unlockDate, setUnlockDate] = useState("");
@@ -29,11 +33,23 @@ export default function CreateCapsule() {
     }
     
     setIsLocking(true);
-    // Simulate encryption and Ritual Ritual Secrets logic
-    setTimeout(() => {
+    try {
+      const unlockTimestamp = Math.floor(new Date(unlockDate).getTime() / 1000);
+      
+      const txHash = await writeContractAsync({
+        address: VEIN_VAULT_ADDRESS,
+        abi: VEIN_VAULT_ABI,
+        functionName: "createCapsule",
+        args: [category, unlockTimestamp, content], // Using raw content for MVP
+      });
+      
+      alert(`Capsule locked successfully! TX: ${txHash}`);
+    } catch (err: any) {
+      console.error(err);
+      alert(`Error locking capsule: ${err.message}`);
+    } finally {
       setIsLocking(false);
-      alert("Capsule locked successfully on Ritual Chain!");
-    }, 2000);
+    }
   };
 
   return (
