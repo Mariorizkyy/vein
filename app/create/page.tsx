@@ -56,7 +56,7 @@ export default function CreateVein() {
           <ArrowLeft className="w-4 h-4" />
           Back to Home
         </Link>
-        <div className="text-sm font-medium tracking-tight">Create Vein</div>
+        <div className="font-extrabold text-lg tracking-[0.2em] text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-400 to-white">V E I N</div>
       </header>
 
       <main className="flex-1 flex items-center justify-center p-4 relative z-10">

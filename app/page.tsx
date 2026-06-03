@@ -13,10 +13,7 @@ export default function Home() {
       {/* Header */}
       <header className="flex justify-between items-center px-8 py-6 w-full mx-auto relative z-10 border-b border-white/5 bg-black/20 backdrop-blur-md">
         <div className="flex items-center gap-3">
-          <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center">
-            <Lock className="w-5 h-5 text-black" />
-          </div>
-          <span className="font-semibold text-lg tracking-tight">Vein</span>
+          <span className="font-extrabold text-2xl tracking-[0.2em] text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-400 to-white drop-shadow-sm">V E I N</span>
         </div>
         <ConnectButton />
       </header>
@@ -61,11 +58,6 @@ export default function Home() {
           ))}
         </div>
       </main>
-
-      {/* Footer */}
-      <footer className="py-8 text-center text-[#A1A1AA] text-sm relative z-10 border-t border-white/5 bg-black/20 backdrop-blur-md">
-        © 2026 Vein Protocol. Hackathon MVP.
-      </footer>
     </div>
   );
 }

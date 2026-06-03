@@ -18,8 +18,11 @@ const ritualTestnet = {
   },
 } as const;
 
+import { injected } from "wagmi/connectors";
+
 export const config = createConfig({
   chains: [ritualTestnet],
+  connectors: [injected()],
   transports: {
     [ritualTestnet.id]: http(),
   },
