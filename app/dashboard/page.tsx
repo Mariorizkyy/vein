@@ -1,12 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowLeft, BrainCircuit, Activity, CheckCircle2, XCircle, MinusCircle } from "lucide-react";
+import { ArrowLeft, BrainCircuit, Activity, Lock } from "lucide-react";
 import { useAccount, useReadContract, useWriteContract } from "wagmi";
 import { VEIN_VAULT_ABI } from "../abi";
 import { VEIN_VAULT_ADDRESS } from "../config";
 import { useState } from "react";
-import { toHex } from "viem";
 
 function CapsuleItem({ id }: { id: bigint }) {
   const { data: capsuleData, isLoading } = useReadContract({
