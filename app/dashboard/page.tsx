@@ -67,14 +67,16 @@ function CapsuleItem({ id }: { id: bigint }) {
              isRevealed ? 'EVALUATED' : 'UNLOCKED - READY'}
           </span>
         </div>
-        <p className="text-[#A1A1AA] text-sm">"{snippet}"</p>
+        <p className="text-[#A1A1AA] text-sm italic">
+          {isRevealed ? `"${snippet}"` : "•••••••••••••••••••••••• (Encrypted)"}
+        </p>
       </div>
       
       <div className="flex items-center gap-4">
         {isRevealed && (
           <div className="text-right">
             <div className="text-xs text-[#A1A1AA] uppercase tracking-widest">Score</div>
-            <div className="text-xl font-semibold">{evaluation.score}</div>
+            <div className="text-xl font-semibold text-green-400">{evaluation.score}</div>
           </div>
         )}
         
@@ -85,11 +87,6 @@ function CapsuleItem({ id }: { id: bigint }) {
             className="px-4 py-2 bg-white text-black hover:bg-neutral-200 rounded-full text-sm font-medium transition-colors disabled:opacity-50"
           >
             {isEvaluating ? 'Triggering...' : 'Unlock & Evaluate'}
-          </button>
-        )}
-        {(isLocked || isRevealed) && (
-          <button className="px-4 py-2 bg-white/10 hover:bg-white/20 rounded-full text-sm font-medium transition-colors">
-             View Details
           </button>
         )}
       </div>
