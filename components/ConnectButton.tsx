@@ -1,12 +1,11 @@
 "use client";
 
 import { useAccount, useConnect, useDisconnect } from "wagmi";
-import { injected } from "wagmi/connectors";
 import { useEffect, useState } from "react";
 
 export default function ConnectButton() {
   const { address, isConnected } = useAccount();
-  const { connect } = useConnect();
+  const { connect, connectors } = useConnect();
   const { disconnect } = useDisconnect();
   
   const [mounted, setMounted] = useState(false);
@@ -27,7 +26,7 @@ export default function ConnectButton() {
 
   return (
     <button 
-      onClick={() => connect({ connector: injected() })}
+      onClick={() => connect({ connector: connectors[0] })}
       className="text-white bg-white/10 hover:bg-white/15 px-4 py-2 rounded-full transition-colors text-sm font-medium"
     >
       Connect Wallet
