@@ -1,2 +1,2 @@
 // Configuration constants
-export const VEIN_VAULT_ADDRESS = "0xe277D26691E991eF681EC6Ce891efdFCc7B3E7e2";
+export const VEIN_VAULT_ADDRESS = "0xf8A6852124eE4e44b003eA3052e727BDD35F9387" as `0x${string}`;

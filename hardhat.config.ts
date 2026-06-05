@@ -13,12 +13,19 @@ const config: HardhatUserConfig = {
         enabled: true,
         runs: 200,
       },
+      // Ritual Chain uses Shanghai EVM — do NOT use Paris or later
+      evmVersion: "shanghai",
     },
   },
   networks: {
     ritual: {
-      url: process.env.RITUAL_RPC_URL || "https://rpc.ritual.net",
+      // FIX: correct RPC URL from official Ritual docs
+      url: process.env.RITUAL_RPC_URL || "https://rpc.ritualfoundation.org",
+      chainId: 1979,
       accounts: process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : [],
+      // Ritual testnet can be slow — increase timeouts
+      timeout: 120_000,
+      gasPrice: "auto",
     },
   },
 };
